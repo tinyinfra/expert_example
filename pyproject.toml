@@ -1,0 +1,16 @@
+[project]
+name = "expert-example"
+version = "0.1.0"
+description = "Example MCP expert for testing AI Suite registry"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+expert-example = "expert_example:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
