@@ -57,6 +57,21 @@ async def list_tools() -> list[Tool]:
                 "properties": {},
                 "required": []
             }
+        ),
+        Tool(
+            name="delay",
+            description="Sleep for N seconds then return. For testing drain behavior. Max 10 seconds.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "seconds": {
+                        "type": "integer",
+                        "description": "Number of seconds to sleep (1-10)",
+                        "default": 1
+                    }
+                },
+                "required": []
+            }
         )
     ]
 
@@ -78,6 +93,12 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         from datetime import datetime
         now = datetime.now().isoformat()
         return [TextContent(type="text", text=f"Current time: {now}")]
+
+    elif name == "delay":
+        seconds = arguments.get("seconds", 1)
+        seconds = max(0, min(seconds, 10))  # Clamp to 0-10
+        await asyncio.sleep(seconds)
+        return [TextContent(type="text", text=f"Delayed {seconds} seconds")]
 
     else:
         return [TextContent(type="text", text=f"Unknown tool: {name}")]
