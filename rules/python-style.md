@@ -1,7 +1,8 @@
 ---
 name: expert-example:python-style
 description: Python coding style guidelines
-glob: "**/*.py"
+globs:
+  - "**/*.py"
 ---
 
 # Python Style Rules
